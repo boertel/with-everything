@@ -1,22 +1,18 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import WaitingProvider, { withWaiting } from './Waiting';
+import DebugProvider, { withDebug } from './Debug';
+import ParametersProvider, { withParameters } from './Parameters';
+import { withAsync, withAsyncConnect} from './Asynchronous';
 
-import styles from './styles.css'
+export {
+  withAsync,
+  withAsyncConnect,
 
-export default class ExampleComponent extends Component {
-  static propTypes = {
-    text: PropTypes.string
-  }
+  DebugProvider,
+  withDebug,
 
-  render() {
-    const {
-      text
-    } = this.props
+  ParametersProvider,
+  withParameters,
 
-    return (
-      <div className={styles.test}>
-        Example Component: {text}
-      </div>
-    )
-  }
+  WaitingProvider,
+  withWaiting,
 }
