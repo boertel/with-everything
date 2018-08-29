@@ -77,7 +77,7 @@ export const withAsync = (async, options) => {
         return async(props)
           .then(response => this.done(response, props))
           .catch(error => {
-            this.done()
+            this.done();
             this.setState({
               error,
             });
@@ -92,6 +92,7 @@ export const withAsync = (async, options) => {
 
       render() {
         const {
+          error,
           loading,
         } = this.state;
 
@@ -99,6 +100,12 @@ export const withAsync = (async, options) => {
           ...this.props,
           reload: this.load,
           cursors: this.state.cursors,
+        }
+
+        if (error) {
+          // need to trigger the error in a synchronous matter so it can
+          // be caught be `ErrorBoundary` component
+          throw error;
         }
 
         if (!options.loader) {

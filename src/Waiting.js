@@ -41,6 +41,8 @@ class WaitingProvider extends Component {
     if (this._waiting > 0) {
       this._waiting -= 1;
       if (this._waiting === 0) {
+        // TODO use some sort of subscription model and unsubscribe on componentWillUnmount
+        // because it is causing an error when an error occurs in one of the children
         this.setState({ waiting: false });
       }
     }
