@@ -3,7 +3,7 @@ import qs from 'qs';
 import { compose } from 'redux';
 import { connect, } from 'react-redux';
 
-import { setDisplayName } from './utils';
+import { getDisplayName, setDisplayName } from './utils';
 
 
 const extractCursor = (url) => {
@@ -34,6 +34,10 @@ export const withAsync = (async, options) => {
         this.state = {
           loading: !!props.load,
           cursors: {},
+        }
+
+        if (!props.load) {
+          console.warn(`No load prop provided to ${getDisplayName(WrappedComponent)}`);
         }
       }
 
