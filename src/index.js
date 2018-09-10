@@ -4,6 +4,7 @@ import ParametersProvider, { withParameters } from './Parameters';
 import { withAsync, withAsyncConnect} from './Asynchronous';
 import ConnectionProvider, { withConnection, } from './Connection';
 import { withMany } from './Many';
+import Wizard from './Wizard';
 
 
 export {
@@ -23,4 +24,6 @@ export {
 
   WaitingProvider,
   withWaiting,
+
+  Wizard,
 }
