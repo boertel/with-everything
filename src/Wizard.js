@@ -19,15 +19,20 @@ class Wizard extends Component {
   }
 
   render() {
-    const { steps, } = this.props;
+    const { steps, parentPath, } = this.props;
 
-    const routes = steps.map(({ component, ...step }), index) => {
-
+    const routes = steps.map(({ component: RouteComponent, ...step }, index) => {
       const first = index === 0;
       const last = index === steps.length - 1;
 
-      const back = !first ? (params, path) => this.push(steps[index - 1].path, params, path) : null;
-      const next = !last ? (params, path) => this.push(steps[index + 1].path, params, path) : null;
+      const back = (params, path) => {
+        const pattern = !first ? steps[index - 1].path : parentPath;
+        this.push(pattern, params, path);
+      };
+      const next = (params, path) => {
+        const pattern = !last ? steps[index + 1].path : parentPath;
+        this.push(pattern, params, path);
+      };
 
       const wizardProps = {
         back,
@@ -36,9 +41,10 @@ class Wizard extends Component {
         last,
       };
 
-      const render = props => <component {...props} {...wizardProps} />
-      return <Route key={step.path} {...step} render={render} />
-    });
+      const render = props => <RouteComponent {...props} wizard={wizardProps} />
+      return <Route key={step.path || index} {...step} render={render} />
+    }).reverse();   // reverse in order to place the "index" route if present
+                    // at this end, so it doesn't block the render of the other children
 
     return (
       <Switch>{routes}</Switch>
