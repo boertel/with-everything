@@ -18,6 +18,10 @@ class Wizard extends Component {
     });
   }
 
+  cancel = (params, path) => {
+    this.push(this.props.parentPath, params, path);
+  };
+
   render() {
     const { steps, parentPath, } = this.props;
 
@@ -34,11 +38,13 @@ class Wizard extends Component {
         this.push(pattern, params, path);
       };
 
+
       const wizardProps = {
         back,
         next,
         first,
         last,
+        cancel: this.cancel,
       };
 
       const render = props => <RouteComponent {...props} wizard={wizardProps} />
