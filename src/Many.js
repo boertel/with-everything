@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { omit, isEmpty, values, sortBy as _sortBy, } from 'lodash-es';
+import { omit, isEmpty, values, sortBy as _sortBy, } from 'lodash';
 
 import { setDisplayName } from './utils';
 

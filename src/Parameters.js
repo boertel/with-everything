@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import qs from 'qs';
-import { isEmpty, omit, isEqual, mapValues, pick } from 'lodash-es';
+import { isEmpty, omit, isEqual, mapValues, pick } from 'lodash';
 
 import { setDisplayName } from './utils';
 

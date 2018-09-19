@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { isEqual } from 'lodash-es';
+import { isEqual } from 'lodash';
 import { generatePath } from 'react-router';
 import { Switch, Route, } from 'react-router-dom';
 
