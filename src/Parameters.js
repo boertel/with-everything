@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 import qs from 'qs';
 import { isEmpty, omit, isEqual, mapValues, pick } from 'lodash';
 
-import { setDisplayName } from './utils';
+import { setDisplayName } from '../utils';
 
 
 const format = (definitions, obj={}) => {
@@ -20,19 +20,26 @@ const format = (definitions, obj={}) => {
 
 const ParametersContext = React.createContext('parameters');
 
+
+const getQueryParameters = (location) => {
+  return qs.parse(location.search, { ignoreQueryPrefix: true });
+}
+
 const ParametersProvider = withRouter(class extends Component {
   constructor(props) {
     super(props);
-    this.state = this.getDefaultParameters(qs.parse(this.props.location.search, { ignoreQueryPrefix: true }));
+    this.state = this.getDefaultParameters(getQueryParameters(this.props.location));
   }
 
   push = (parameters) => {
-    this.props.push(parameters);
+    this.props.history.push({
+      search: `?${qs.stringify(parameters)}`,
+    });
   }
 
   componentWillReceiveProps(nextProps) {
     if (!isEqual(nextProps.location.search, this.props.location.search)) {
-      this.setState(format(this.props.fromURL, qs.parse(nextProps.location.search, { ignoreQueryPrefix: true })));
+      this.setState(format(this.props.fromURL, getQueryParameters(nextProps.location)));
     }
   }
 
@@ -66,7 +73,7 @@ const ParametersProvider = withRouter(class extends Component {
     const parametersFromURL = pick(parameters, Object.keys(fromURL));
     if (!isEmpty(parametersFromURL)) {
       stateFromURL = {
-        ...pick(this.props.location.query, Object.keys(fromURL)), // values from URL
+        ...pick(getQueryParameters(this.props.location), Object.keys(fromURL)), // values from URL
         ...parametersFromURL,  // and then new values that will be push to URL
       };
       }
