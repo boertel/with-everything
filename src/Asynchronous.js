@@ -81,6 +81,7 @@ export const withAsync = (async, options) => {
         return async(props)
           .then(response => this.done(response, props))
           .catch(error => {
+            console.error(error);
             this.done();
             this.setState({
               error,

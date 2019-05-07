@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 import qs from 'qs';
 import { isEmpty, omit, isEqual, mapValues, pick } from 'lodash';
 
-import { setDisplayName } from '../utils';
+import { setDisplayName } from './utils';
 
 
 const format = (definitions, obj={}) => {
